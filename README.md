@@ -1,6 +1,6 @@
 # Examen Práctico DAM: Sistema de Gestión de Alquiler de Coches
 
-¡Bienvenido al examen práctico! En esta prueba, vas a demostrar tus conocimientos sobre el patrón de arquitectura **MVC (Modelo-Vista-Controlador)** en PHP.
+¡Bienvenido al examen práctico! En esta prueba vas a demostrar tus conocimientos sobre el patrón de arquitectura **MVC (Modelo-Vista-Controlador)** en PHP.
 
 ## Contexto del Proyecto
 
