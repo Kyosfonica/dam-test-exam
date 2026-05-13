@@ -1,4 +1,4 @@
-# Examen Práctico DAM: Alquiler de Coches (Versión Simplificada)
+# Examen Práctico DAM: Alquiler de Coches
 
 ¡Bienvenido al examen práctico! En esta prueba vas a demostrar tus conocimientos básicos de programación web con PHP, manejando variables de sesión (`$_SESSION`), cookies (`$_COOKIE`), redirecciones y recepción de datos mediante GET y POST.
 
@@ -8,9 +8,9 @@ Para mantener el proyecto simple, **NO hay base de datos**. Los datos de los coc
 
 - **`includes/header.php`**: Inicia la sesión (`session_start()`), carga unos coches iniciales por defecto y pinta la cabecera HTML (con los menús).
 - **`includes/footer.php`**: Cierra las etiquetas HTML.
-- **`index.php`**: Este archivo está parcialmente programado. Sirve como ejemplo base mostrando la tabla de coches disponibles y, si existe la cookie del usuario, sus coches alquilados. Tendrás que rellenar un hueco en este archivo.
+- **`index.php`**: Este archivo está parcialmente programado. Sirve como ejemplo base mostrando la tabla de coches disponibles y, si existe la cookie del usuario, sus coches alquilados. Tendrás que rellenar un hueco en este archivo, en el examen real habrá que hacer más.
 
-## Tu Tarea (Archivos a Rellenar)
+## Archivos a Rellenar
 
 Tu objetivo es rellenar la lógica en los siguientes archivos. Ábrelos y busca los comentarios que empiezan por `TODO:` para saber exactamente qué hacer:
 
