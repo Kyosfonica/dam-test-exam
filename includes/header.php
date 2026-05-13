@@ -16,18 +16,20 @@ $client_name = isset($_COOKIE['client_name']) ? $_COOKIE['client_name'] : null;
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen DAM - Alquiler de Coches Simplificado</title>
+    <title>Examen DAM - Alquiler de Coches</title>
     <!-- Usamos PicoCSS para un diseño limpio sin escribir CSS extra -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 </head>
+
 <body>
     <header class="container">
         <nav>
             <ul>
-                <li><strong>RentACar DAM (Simplificado)</strong></li>
+                <li><strong>RentACar DAM</strong></li>
             </ul>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
