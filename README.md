@@ -1,61 +1,55 @@
-# Examen Práctico DAM: Sistema de Gestión de Alquiler de Coches
+# Examen Práctico DAM: Alquiler de Coches (Versión Simplificada)
 
-¡Bienvenido al examen práctico! En esta prueba vas a demostrar tus conocimientos sobre el patrón de arquitectura **MVC (Modelo-Vista-Controlador)** en PHP.
+¡Bienvenido al examen práctico! En esta prueba vas a demostrar tus conocimientos básicos de programación web con PHP, manejando variables de sesión (`$_SESSION`), cookies (`$_COOKIE`), redirecciones y recepción de datos mediante GET y POST.
 
-## Contexto del Proyecto
+Para mantener el proyecto simple, **NO hay base de datos**. Los datos de los coches se guardan temporalmente en la memoria del servidor usando la sesión de PHP. Si reinicias el navegador, los datos volverán a su estado inicial. 
 
-Se te ha encargado desarrollar el panel de gestión para una pequeña empresa de alquiler de coches.
-El proyecto ya cuenta con una base sólida para ahorrar tiempo:
-- **Base de Datos**: SQLite (archivo `database/database.sqlite` ya generado con datos de prueba).
-- **Conexión a la BBDD**: Ya configurada en `config/database.php` usando PDO.
-- **Modelos**: Las clases `Car`, `Client` y `Rental` ya están completamente implementadas en la carpeta `models/` con todos los métodos necesarios para interactuar con la base de datos (consultar, insertar, actualizar).
-- **Front Controller**: El archivo `index.php` en la raíz ya está programado para recibir peticiones y dirigirlas al controlador y método (acción) adecuado.
-- **Vistas**: Tienes un layout base (`views/layout.php`) con PicoCSS integrado para que el diseño sea presentable sin esfuerzo adicional.
+## Archivos Provistos (No necesitas modificarlos)
 
-## Tu Tarea
+- **`includes/header.php`**: Inicia la sesión (`session_start()`), carga unos coches iniciales por defecto y pinta la cabecera HTML (con los menús).
+- **`includes/footer.php`**: Cierra las etiquetas HTML.
+- **`index.php`**: Este archivo está parcialmente programado. Sirve como ejemplo base mostrando la tabla de coches disponibles y, si existe la cookie del usuario, sus coches alquilados. Tendrás que rellenar un hueco en este archivo.
 
-Tu objetivo principal es **implementar la lógica de los Controladores y completar el código HTML/PHP de las Vistas**.
+## Tu Tarea (Archivos a Rellenar)
 
-Abre los archivos de la carpeta `controllers/` y `views/` y busca los comentarios que empiezan con `TODO:`. Estos comentarios te guiarán paso a paso sobre lo que tienes que programar.
+Tu objetivo es rellenar la lógica en los siguientes archivos. Ábrelos y busca los comentarios que empiezan por `TODO:` para saber exactamente qué hacer:
 
-### Ejemplos provistos
-Para ayudarte a entender cómo funciona el flujo, **el controlador `CarController` y las vistas `views/cars/index.php` y `views/cars/show.php` están completamente implementados**. 
-Puedes usarlos como referencia para entender:
-- Cómo instanciar un modelo.
-- Cómo obtener datos de la base de datos.
-- Cómo usar `ob_start()` y `require_once` para inyectar una vista específica dentro del `layout.php`.
-- Cómo mostrar los datos dinámicos mediante bucles `foreach` y variables en las vistas.
+1. **`index.php`**
+   - Rellenar el bloque de código de la línea 34 a 40 para comprobar si `$client_name` tiene valor y pintar los enlaces de 'Alquilar' o 'Identifícate'.
 
-### Casos de Uso a implementar:
+2. **`login.php`**
+   - Recibir el nombre enviado por el formulario usando el método POST (`$_POST`).
+   - Crear una cookie llamada `client_name` con el nombre recibido.
+   - Redirigir al usuario de vuelta a `index.php`.
 
-1. **Gestión de Clientes (`ClientController` y `views/clients/`)**:
-   - Listar todos los clientes en una tabla.
-   - Formulario para añadir un nuevo cliente y procesamiento de ese formulario (`store`).
+2. **`rent.php`**
+   - Recibir el ID del coche mediante el método GET (`$_GET['id']`).
+   - Comprobar que el usuario está identificado (revisando que existe `$_COOKIE['client_name']`).
+   - Buscar el coche en `$_SESSION['cars']` y cambiar su estado `available` a `false`.
+   - Guardar el nombre del cliente en el campo `rented_by` del coche.
+   - Redirigir a `index.php`.
 
-2. **Alta de Coches (`CarController` y `views/cars/`)**:
-   - Formulario para añadir un nuevo coche y procesamiento de ese formulario (`store`).
+3. **`return.php`**
+   - Recibir el ID del coche por GET.
+   - Verificar que pertenece a este usuario (el campo `rented_by` debe coincidir con `$_COOKIE['client_name']`).
+   - Volver a poner `available` a `true` y `rented_by` a `null`.
+   - Redirigir a `index.php`.
 
-3. **Gestión de Alquileres (`RentalController` y `views/rentals/`)**:
-   - Listar el histórico de alquileres (activos y pasados).
-   - Formulario para alquilar un coche (necesitarás cargar los clientes y los coches disponibles para los desplegables `<select>`).
-   - Lógica para procesar la devolución de un coche (al pulsar un botón "Devolver" en la lista de alquileres, se debe llamar al método `returnCar` del controlador, que actualizará la base de datos marcando el alquiler como finalizado y el coche como disponible nuevamente).
+4. **`logout.php`**
+   - Destruir la cookie `client_name` (sobreescribiéndola con un tiempo de expiración pasado).
+   - Redirigir a `index.php`.
 
-## Instrucciones para ejecutar el proyecto en tu máquina
+## Instrucciones para ejecutar el proyecto
 
-### Opción 1: Usando el servidor integrado de PHP (Recomendado)
-Si tienes PHP instalado y configurado en tu variable de entorno (PATH), puedes arrancar un servidor local directamente desde la terminal, en la carpeta raíz del proyecto (`dam-exam-test`):
-
+### Opción 1: Servidor integrado de PHP (Recomendado)
+Abre la terminal en esta carpeta y ejecuta:
 ```bash
 php -S localhost:8000
 ```
-Luego, abre tu navegador web y visita: `http://localhost:8000`
+Visita en tu navegador: `http://localhost:8000`
 
-### Opción 2: Usando WAMP / XAMPP
-Si prefieres usar un entorno como WAMP o XAMPP:
-1. Mueve o copia la carpeta entera de este proyecto (`dam-exam-test`) dentro del directorio público de tu servidor web:
-   - En **WAMP**: habitualmente `C:\wamp64\www\`
-   - En **XAMPP**: habitualmente `C:\xampp\htdocs\`
-2. Asegúrate de que tu servidor Apache está arrancado en el panel de control de WAMP/XAMPP.
-3. Abre tu navegador web y visita: `http://localhost/dam-exam-test` (o la ruta correspondiente si has renombrado la carpeta).
+### Opción 2: WAMP / XAMPP
+Copia esta carpeta entera dentro de `C:\wamp64\www\` (WAMP) o `C:\xampp\htdocs\` (XAMPP).
+Asegúrate de que Apache está corriendo y visita `http://localhost/dam-exam-test`.
 
-¡Mucha suerte! Revisa bien la sintaxis de PHP, cierra las etiquetas correctamente y verifica que los datos lleguen por `$_POST` o `$_GET` antes de usarlos.
+¡Mucha suerte!
